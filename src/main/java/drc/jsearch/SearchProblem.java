@@ -34,8 +34,8 @@ public abstract class SearchProblem implements SearchProblemInterface {
 	StateInterface initialState = this.getInitialState();
 	double h = heuristic(initialState);
 	Node initialNode = new Node(null, initialState, null, 0, h);
-	System.out.println(initialNode.toString());
 	openlist.add(initialNode);
+	
 	Node node = openlist.poll();
 	while (node != null) {
 	    if (isSolution(node.state)) return node;
@@ -50,6 +50,13 @@ public abstract class SearchProblem implements SearchProblemInterface {
 	Queue<Node> openlist = new LinkedList<Node>();
 	return treeSearch(openlist);
     }
+
+    // Need openlistinterface to implement this, since a stack is not
+    // a queue but a vector.
+    // public Node depthFirstTreeSearch () {
+    // 	Queue<Node> openlist = new Stack<Node>();
+    // 	return treeSearch(openlist);
+    // }
 
     public Node depthLimitedGraphSearch (Queue<Node> openlist, int limit) {
 	/* Create closedlist */
