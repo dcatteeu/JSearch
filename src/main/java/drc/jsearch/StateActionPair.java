@@ -1,4 +1,4 @@
-package drc.search;
+package drc.jsearch;
 
 public class StateActionPair {
     public final StateInterface state;

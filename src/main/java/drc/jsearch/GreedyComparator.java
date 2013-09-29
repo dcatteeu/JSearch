@@ -1,4 +1,4 @@
-package drc.search;
+package drc.jsearch;
 
 import java.util.Comparator;
 
