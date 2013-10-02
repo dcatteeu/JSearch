@@ -1,0 +1,4 @@
+* Add tests
+* Add ways to read graphs from file
+* Add example of a puzzle
+* Add documentation

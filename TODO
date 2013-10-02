@@ -1,7 +1,0 @@
-* Add openlist implementations: fifo, lifo, and priorityqueue
-* Add tests
-* Add SearchProblem implementation of a graph
-** Add ways to read graphs from file
-* Add an example
-* Add algorithms: depth-first, greedy best-first, uniform-cost
-* Add documentation
