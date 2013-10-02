@@ -2,13 +2,13 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>drc.jsearch</groupId>
-  <artifactId>search</artifactId>
+  <artifactId>jsearch</artifactId>
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>Search</name>
-  <description>The Search project is a library with classic tree and
+  <name>JSearch</name>
+  <description>The JSearch project is a library with classic tree and
   graph search algorithms.</description>
-  <!-- <url>http://maven.apache.org</url> -->
+  <url>https://github.com/dcatteeu/jsearch</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>

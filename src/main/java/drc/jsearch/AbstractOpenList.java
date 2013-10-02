@@ -17,10 +17,26 @@ along with JSearch.  If not, see <http://www.gnu.org/licenses/>. */
 
 package drc.jsearch;
 
-public interface StateInterface {
+import java.util.*;
 
-    boolean equals (StateInterface other);
-    int hashCode ();
-    String toString ();
+public abstract class AbstractOpenList implements OpenListInterface {
+
+    protected Queue<Node> nodes;
+
+    public Node poll () {
+	return nodes.poll();
+    }
     
+    public boolean add (Node node) {
+	return nodes.add(node);
+    }
+
+    public boolean addAll (LinkedList<Node> nodes) {
+	boolean result = this.nodes.addAll(nodes);
+	return result;
+    }
+    
+    public void clear () {
+	nodes.clear();
+    }
 }

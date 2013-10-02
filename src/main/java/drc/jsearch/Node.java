@@ -23,7 +23,7 @@ public class Node {
     public final Node parent;
     public final StateInterface state;
     public final ActionInterface action;
-    public final int depth;
+    public final long depth;
     public final double pathcost, heuristic, totalcost;
 
     Node (Node parent, StateInterface state, ActionInterface action,
@@ -31,14 +31,14 @@ public class Node {
 	this.parent = parent;
 	this.state = state;
 	this.action = action;
-	this.depth = (parent==null ? 0 : parent.depth);
-	this.pathcost = (parent==null ? 0 : parent.pathcost) + stepcost;
+	this.depth = (parent==null ? 0 : parent.depth + 1);
+	this.pathcost = (parent==null ? 0 : parent.pathcost + stepcost);
 	this.heuristic = heuristic;
 	this.totalcost = pathcost + heuristic;
     }
     
-    List<Node> expand (SearchProblemInterface problem) {
-	List<Node> children = new ArrayList<Node>();
+    LinkedList<Node> expand (SearchProblemInterface problem) {
+	LinkedList<Node> children = new LinkedList<Node>();
 	List<StateActionPair> stateActionPairs = problem.successors(state);
 	for (StateActionPair stateActionPair : stateActionPairs) {
 	    double stepcost = problem.stepcost(this.state,
@@ -53,27 +53,23 @@ public class Node {
 	return children;
     }
 
-    public Node[] pathTo () {
-	Deque<Node> path = new ArrayDeque<Node>();
+    public LinkedList<Node> pathTo () {
+	LinkedList<Node> path = new LinkedList<Node>();
 	Node node = this;
 	while (node != null) {
-	    System.out.println(node.toString());
 	    path.addFirst(node);
 	    node = node.parent;
 	}
-	Node[] a = {};
-	return path.toArray(a);
+	return path;
     }
 
+    @Override
     public String toString () {
-	return new String("<Node: " +
-			  //(parent==null ? "null" : parent.toString()) + ", " +
-			  state.toString() + ", " +
-			  (action==null ? "null" : action.toString())
-			  + ", " +
-			  depth + ", " +
-			  pathcost + ", " +
-			  heuristic + ", " +
-			  totalcost + ">");
+	return new String("<Node: state:" + state
+			  + ", action:" + (action==null ? "null" : action)
+			  + ", depth: " + depth
+			  + ", g: " + pathcost
+			  + ", h: " + heuristic
+			  + ", f: " + totalcost + ">");
     }
 }

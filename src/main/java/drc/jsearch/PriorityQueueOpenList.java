@@ -17,10 +17,15 @@ along with JSearch.  If not, see <http://www.gnu.org/licenses/>. */
 
 package drc.jsearch;
 
-public interface StateInterface {
+import java.util.*;
 
-    boolean equals (StateInterface other);
-    int hashCode ();
-    String toString ();
+public class PriorityQueueOpenList extends AbstractOpenList {
+
+    PriorityQueueOpenList (int initialCapacity, Comparator<Node> comparator) {
+	nodes = new PriorityQueue<Node>(initialCapacity, comparator);
+    }
     
+    PriorityQueueOpenList (Comparator<Node> comparator) {
+	this(11, comparator);
+    }
 }

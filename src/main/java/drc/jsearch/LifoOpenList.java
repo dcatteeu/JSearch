@@ -17,10 +17,26 @@ along with JSearch.  If not, see <http://www.gnu.org/licenses/>. */
 
 package drc.jsearch;
 
-public interface StateInterface {
+import java.util.*;
 
-    boolean equals (StateInterface other);
-    int hashCode ();
-    String toString ();
+public class LifoOpenList extends AbstractOpenList {
+
+    LifoOpenList () {
+	nodes = new ArrayDeque<Node>();
+    }
     
+    public boolean add (Node node) {
+	Deque<Node> nodes = (Deque<Node>) this.nodes;
+	nodes.addFirst(node);
+	return true; // No space limitations, so it should always
+		     // succeed.
+    }
+
+    public boolean addAll (LinkedList<Node> nodes) {
+	Iterator<Node> it = nodes.descendingIterator();
+	while (it.hasNext()){
+	    add(it.next());
+	}
+	return true;
+    }
 }
