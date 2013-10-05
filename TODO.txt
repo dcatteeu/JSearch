@@ -2,3 +2,6 @@
 * Add ways to read graphs from file
 * Add example of a puzzle
 * Add documentation
+
+* Algorithms: IDA* (like iterative-deepening but repeatedly increasing the maximum f-cost instead of the maximum depth), fringe search, SMA*, 
+(already available: depth-first, breadth-first, uniform-cost, greedy best-first, A*, depth-limited, iterative deepening depth-first)
