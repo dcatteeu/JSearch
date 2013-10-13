@@ -19,7 +19,26 @@ package drc.jsearch;
 
 import java.util.*;
 
-public abstract class AbstractSearchProblem implements SearchProblemInterface {
+interface DepthLimitInterface {
+    boolean belowLimit (Node node);
+    void incLimit (Node node);
+}
+
+abstract class AbstractDepthLimit implements DepthLimitInterface {
+    double limit = 1;
+    AbstractDepthLimit (double limit) {
+	this.limit = limit;
+    }
+    AbstractDepthLimit () {
+	this(1);
+    }
+    public void incLimit (Node node) {
+	limit++;
+    }
+}
+
+public abstract class AbstractSearchProblem
+    implements SearchProblemInterface {
 
     public double stepcost (StateInterface from, ActionInterface action,
 			    StateInterface to) {
@@ -33,7 +52,7 @@ public abstract class AbstractSearchProblem implements SearchProblemInterface {
     /* The generic search algorithm. */
     public Node genericSearch (OpenListInterface openlist,
 			       boolean graphSearch,
-			       long maxDepth) {
+			       DepthLimitInterface function) {
 	/* Closed list. */
 	ClosedListInterface closedlist
 	    = graphSearch ? new ClosedList() : new DummyClosedList();
@@ -43,50 +62,99 @@ public abstract class AbstractSearchProblem implements SearchProblemInterface {
 	double h = heuristic(initialState);
 	Node initialNode = new Node(null, initialState, null, 0, h);
 	openlist.add(initialNode);
-
-	/* Loop until openlist is empty, maximum depth reached, or
-	 * solution is found. */
+	
+	/* Loop until openlist is empty or solution is found. */
 	Node node = openlist.poll();
-	while (node != null && node.depth < maxDepth) {
-	    if (!closedlist.contains(node.state)) {
+	Node shallowestNode = null;
+	while (node != null) {
+	    if (!function.belowLimit(node)) {
+		/* Depth limit reached. */
+		if (shallowestNode == null ||
+		    node.totalcost < shallowestNode.totalcost)
+		    shallowestNode = node;
+	    } else if (!closedlist.contains(node.state)) {
+		/* State already visited. */
 		closedlist.add(node.state);
 		if (isSolution(node.state)) return node;
 		LinkedList<Node> children = node.expand(this);
 		openlist.addAll(children);
-		node = openlist.poll();
 	    }
+	    node = openlist.poll();
 	}
-	return null; // No solution found.
+	return shallowestNode; // No solution found.
+    }
+
+    /* The generic search algorithm without depth limit. */
+    public Node genericSearch (OpenListInterface openlist,
+			       boolean graphSearch) {
+	DepthLimitInterface function = new AbstractDepthLimit () {
+		public boolean belowLimit (Node n) {
+		    return true;
+		}
+	    };
+	return genericSearch (openlist, graphSearch, function);
     }
 
     public Node iterativeDeepening (OpenListInterface openlist,
 				    boolean graphSearch,
-				    long maxDepth) {
+				    DepthLimitInterface function) {
 	Node solution = null;
-	int limit = 1;
-	while (limit < maxDepth) {
+	for (int i = 0; i < Long.MAX_VALUE; i++) {
 	    /* Probably not necessary, as the openlist is empty if the
 	     * search failed. */
 	    openlist.clear();
 	    
-	    solution = genericSearch(openlist, graphSearch, limit);
-	    if (solution != null) return solution;
-	    limit++;
+	    solution = genericSearch(openlist, graphSearch, function);
+	    if (solution == null)
+		return null;
+	    
+	    if (isSolution(solution.state))
+		return solution;
+	    
+	    function.incLimit(solution);
 	}
 	return null; // No solution found.
     }
 
-    public Node depthLimitedSearch (long maxDepth) {
+    /* Performs DFS with increasing depth limits. The limit is
+     * initially 1 and is incremented by 1. */
+    public Node iterativeDeepeningDepthFirstSearch () {
     	OpenListInterface openlist = new LifoOpenList();
-	return genericSearch(openlist, false, maxDepth);
+	double h = heuristic(getInitialState());
+	DepthLimitInterface function = new AbstractDepthLimit(1) {
+		public boolean belowLimit (Node node) {
+		    return node.depth < limit;
+		}
+	    };
+	return iterativeDeepening(openlist, false, function);
+    }
+
+    /* Performs DFS with increasing depth limits. The limit is
+     * initially the heuristic of the root node and is incremented
+     * with the minimum pathcost of any pruned node. */
+    public Node iterativeDeepeningAStarSearch (boolean graphSearch) {
+    	OpenListInterface openlist = new LifoOpenList();
+	double h = heuristic(getInitialState());
+	DepthLimitInterface function = new AbstractDepthLimit(h) {
+		public boolean belowLimit (Node node) {
+		    return node.totalcost < limit;
+		}
+	    };
+	return iterativeDeepening(openlist, graphSearch, function);
+    }
+
+    public Node depthLimitedSearch (long maxDepth) {
+	DepthLimitInterface function = new AbstractDepthLimit(maxDepth) {
+		public boolean belowLimit (Node n) {
+		    return n.depth < limit;
+		}
+	    };
+    	OpenListInterface openlist = new LifoOpenList();
+	return genericSearch(openlist, false, function);
     }
 
     public Node treeSearch (OpenListInterface openlist) {
-	/* TODO: In Lisp i'd pass a function, instead of a number, and
-	 * here i'd provide a function that always returns false. In
-	 * C++, i'd use the strategy pattern and multiple
-	 * inheritance. What's the best way to do this in Java? */
-	return genericSearch(openlist, false, Long.MAX_VALUE);
+	return genericSearch(openlist, false);
     }
 
     public Node depthFirstSearch () {
@@ -106,25 +174,24 @@ public abstract class AbstractSearchProblem implements SearchProblemInterface {
     }
 
     public Node depthLimitedGraphSearch (long maxDepth) {
+	DepthLimitInterface function = new AbstractDepthLimit(maxDepth) {
+		public boolean belowLimit (Node n) {
+		    return n.depth < limit;
+		}
+	    };
     	OpenListInterface openlist = new LifoOpenList();
-	return genericSearch(openlist, false, maxDepth);
+	return genericSearch(openlist, true, function);
     }
 
     public Node greedyBestFirstSearch (boolean graphSearch) {
 	OpenListInterface openlist
 	    = new PriorityQueueOpenList(11, new GreedyComparator());
-	return genericSearch(openlist, graphSearch, Long.MAX_VALUE);
+	return genericSearch(openlist, graphSearch);
     }
 
     public Node aStarSearch (boolean graphSearch) {
 	OpenListInterface openlist
 	    = new PriorityQueueOpenList(11, new AStarComparator());
-	return genericSearch(openlist, graphSearch, Long.MAX_VALUE);
-    }
-
-    public Node iterativeDeepeningAStarSearch (boolean graphSearch) {
-	OpenListInterface openlist
-	    = new PriorityQueueOpenList(11, new AStarComparator());
-	return iterativeDeepening(openlist, graphSearch, Long.MAX_VALUE);
+	return genericSearch(openlist, graphSearch);
     }
 }

@@ -72,6 +72,8 @@ public class Example1
 	report("uniform cost", graph.uniformCostSearch());
 	report("A* treesearch", graph.aStarSearch(false));
 	report("A* graphsearch", graph.aStarSearch(true));
+	report("ID DFS", graph.iterativeDeepeningDepthFirstSearch());
+	report("ID A*", graph.iterativeDeepeningAStarSearch(false));
     }
 
     public static void main (String[] argv) {
