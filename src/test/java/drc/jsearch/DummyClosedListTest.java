@@ -15,32 +15,33 @@ for more details.
 You should have received a copy of the GNU General Public License
 along with JSearch.  If not, see <http://www.gnu.org/licenses/>. */
 
+
 package drc.jsearch;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-public class ClosedListTest extends TestCase {
+public class DummyClosedListTest extends TestCase {
     
-    public ClosedListTest (String name) {
+    public DummyClosedListTest (String name) {
         super(name);
     }
 
     public static Test suite() {
-        return new TestSuite(ClosedListTest.class);
+        return new TestSuite(DummyClosedListTest.class);
     }
 
-    public void testClosedList() {
+    public void testDummyClosedList() {
 	StringState a = new StringState("a");
 	StringState b = new StringState("b");
-	ClosedList closedlist = new ClosedList();
+	DummyClosedList closedlist = new DummyClosedList();
 	assertFalse(closedlist.contains(a));
 	closedlist.add(a);
-        assertTrue(closedlist.contains(a));
+        assertFalse(closedlist.contains(a));
 	assertFalse(closedlist.contains(b));
 	closedlist.add(b);
-        assertTrue(closedlist.contains(a));
-	assertTrue(closedlist.contains(b));
+        assertFalse(closedlist.contains(a));
+	assertFalse(closedlist.contains(b));
     }
 }

@@ -15,32 +15,47 @@ for more details.
 You should have received a copy of the GNU General Public License
 along with JSearch.  If not, see <http://www.gnu.org/licenses/>. */
 
+
 package drc.jsearch;
+
+import java.util.*;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-public class ClosedListTest extends TestCase {
+public class LifoOpenListTest extends TestCase {
     
-    public ClosedListTest (String name) {
+    public LifoOpenListTest (String name) {
         super(name);
     }
 
     public static Test suite() {
-        return new TestSuite(ClosedListTest.class);
+        return new TestSuite(LifoOpenListTest.class);
     }
 
-    public void testClosedList() {
-	StringState a = new StringState("a");
-	StringState b = new StringState("b");
-	ClosedList closedlist = new ClosedList();
-	assertFalse(closedlist.contains(a));
-	closedlist.add(a);
-        assertTrue(closedlist.contains(a));
-	assertFalse(closedlist.contains(b));
-	closedlist.add(b);
-        assertTrue(closedlist.contains(a));
-	assertTrue(closedlist.contains(b));
+    public void testLifoOpenList() {
+	Node a = new Node(null, null, null, 0, 4);
+	Node b = new Node(a, null, null, 1, 3);
+	Node c = new Node(b, null, null, 2, 2);
+	Node d = new Node(c, null, null, 3, 1);
+	LifoOpenList openlist = new LifoOpenList();
+	assertNull(openlist.poll());
+
+	openlist.add(a);
+	openlist.add(b);
+	assertSame(b, openlist.poll());
+	assertSame(a, openlist.poll());
+	
+	LinkedList<Node> list = new LinkedList<Node>();
+	list.add(c);
+	list.add(d);
+	openlist.addAll(list);
+	openlist.add(a);
+	assertSame(a, openlist.poll());
+	openlist.add(b);
+	assertSame(b, openlist.poll());
+	assertSame(c, openlist.poll());
+	assertSame(d, openlist.poll());
     }
 }

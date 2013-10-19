@@ -40,6 +40,10 @@ abstract class AbstractDepthLimit implements DepthLimitInterface {
 public abstract class AbstractSearchProblem
     implements SearchProblemInterface {
 
+    private long nofNodesVisited = 0;
+    private long nofNodesPruned = 0;
+    private long nofClosedListHits = 0;
+
     public double stepcost (StateInterface from, ActionInterface action,
 			    StateInterface to) {
 	return 1;
@@ -67,13 +71,18 @@ public abstract class AbstractSearchProblem
 	Node node = openlist.poll();
 	Node shallowestNode = null;
 	while (node != null) {
+	    nofNodesVisited++;
 	    if (!function.belowLimit(node)) {
 		/* Depth limit reached. */
+		nofNodesPruned++;
 		if (shallowestNode == null ||
 		    node.totalcost < shallowestNode.totalcost)
 		    shallowestNode = node;
-	    } else if (!closedlist.contains(node.state)) {
+	    } else if (closedlist.contains(node.state)) {
 		/* State already visited. */
+		nofClosedListHits++;
+	    } else {
+		/* State not yet visited. */
 		closedlist.add(node.state);
 		if (isSolution(node.state)) return node;
 		LinkedList<Node> children = node.expand(this);
