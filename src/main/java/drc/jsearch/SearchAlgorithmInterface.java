@@ -17,16 +17,10 @@ along with JSearch.  If not, see <http://www.gnu.org/licenses/>. */
 
 package drc.jsearch;
 
-import java.util.*;
+public interface SearchAlgorithmInterface {
 
-public abstract class AbstractSearchProblem implements SearchProblemInterface
-{
-    public double stepcost (StateInterface from, ActionInterface action,
-			    StateInterface to) {
-	return 1;
-    }
+    Node search (SearchProblemInterface problem);
 
-    public double heuristic (StateInterface state) {
-	return 0;
-    }
+    long nofNodesVisited ();
+    long currentDepth ();
 }

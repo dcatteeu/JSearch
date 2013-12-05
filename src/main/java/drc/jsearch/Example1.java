@@ -67,13 +67,13 @@ public class Example1
     }
 
     void test () {
-	report("depth first", graph.depthFirstSearch());
-	report("breadth first", graph.breadthFirstSearch());
-	report("uniform cost", graph.uniformCostSearch());
-	report("A* treesearch", graph.aStarSearch(false));
-	report("A* graphsearch", graph.aStarSearch(true));
-	report("ID DFS", graph.iterativeDeepeningDepthFirstSearch());
-	report("ID A*", graph.iterativeDeepeningAStarSearch(false));
+	report("depth first", new DepthFirstSearch().search(graph));
+	report("breadth first", new BreadthFirstSearch().search(graph));
+	report("uniform cost", new UniformCostSearch().search(graph));
+	report("A* treesearch", new AStarSearch(new DummyClosedList()).search(graph));
+	report("A* graphsearch", new AStarSearch().search(graph));
+	report("IDS", new IterativeDeepeningSearch().search(graph));
+	report("IDA*", new IterativeDeepeningAStarSearch().search(graph));
     }
 
     public static void main (String[] argv) {

@@ -17,16 +17,13 @@ along with JSearch.  If not, see <http://www.gnu.org/licenses/>. */
 
 package drc.jsearch;
 
-import java.util.*;
-
-public abstract class AbstractSearchProblem implements SearchProblemInterface
+public class AStarSearch extends BestFirstSearch
 {
-    public double stepcost (StateInterface from, ActionInterface action,
-			    StateInterface to) {
-	return 1;
+    public AStarSearch (ClosedListInterface closedlist) {
+	super(new AStarComparator(), closedlist);
     }
-
-    public double heuristic (StateInterface state) {
-	return 0;
+    
+    public AStarSearch () {
+	this(new ClosedList());
     }
 }

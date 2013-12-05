@@ -17,16 +17,16 @@ along with JSearch.  If not, see <http://www.gnu.org/licenses/>. */
 
 package drc.jsearch;
 
-import java.util.*;
-
-public abstract class AbstractSearchProblem implements SearchProblemInterface
+public class IterativeDeepeningAStarSearch extends IterativeDeepeningSearch
 {
-    public double stepcost (StateInterface from, ActionInterface action,
-			    StateInterface to) {
-	return 1;
-    }
-
-    public double heuristic (StateInterface state) {
-	return 0;
+    public IterativeDeepeningAStarSearch () {
+	super(new DummyDepthLimit() {
+		public boolean belowLimit (Node node) {
+		    return node.totalcost < limit;
+		}
+		public void initializeLimit (Node node) {
+		    limit = node.heuristic;
+		}
+	    });
     }
 }

@@ -17,16 +17,14 @@ along with JSearch.  If not, see <http://www.gnu.org/licenses/>. */
 
 package drc.jsearch;
 
-import java.util.*;
-
-public abstract class AbstractSearchProblem implements SearchProblemInterface
+interface DepthLimitInterface
 {
-    public double stepcost (StateInterface from, ActionInterface action,
-			    StateInterface to) {
-	return 1;
-    }
+    boolean belowLimit (Node node);
 
-    public double heuristic (StateInterface state) {
-	return 0;
-    }
+    void initializeLimit (Node node);
+
+    /* Increase limit based on the given node. This node is the
+     * shallowest pruned node when searching with the current depth
+     * limit. */
+    void incLimit (Node node);
 }

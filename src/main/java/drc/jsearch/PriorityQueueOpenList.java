@@ -21,11 +21,9 @@ import java.util.*;
 
 public class PriorityQueueOpenList extends AbstractOpenList {
 
-    PriorityQueueOpenList (int initialCapacity, Comparator<Node> comparator) {
-	nodes = new PriorityQueue<Node>(initialCapacity, comparator);
-    }
-    
+    protected static final int INITIAL_CAPACITY = 11;
+
     PriorityQueueOpenList (Comparator<Node> comparator) {
-	this(11, comparator);
+	nodes = new PriorityQueue<Node>(INITIAL_CAPACITY, comparator);
     }
 }

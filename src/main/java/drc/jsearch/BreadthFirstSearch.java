@@ -17,16 +17,9 @@ along with JSearch.  If not, see <http://www.gnu.org/licenses/>. */
 
 package drc.jsearch;
 
-import java.util.*;
-
-public abstract class AbstractSearchProblem implements SearchProblemInterface
+public class BreadthFirstSearch extends GenericSearchAlgorithm
 {
-    public double stepcost (StateInterface from, ActionInterface action,
-			    StateInterface to) {
-	return 1;
-    }
-
-    public double heuristic (StateInterface state) {
-	return 0;
+    public BreadthFirstSearch () {
+	super(new FifoOpenList());
     }
 }
