@@ -19,14 +19,11 @@ package drc.jsearch;
 
 public class IterativeDeepeningAStarSearch extends IterativeDeepeningSearch
 {
+    public IterativeDeepeningAStarSearch (ClosedListInterface closedlist) {
+	super(closedlist, new AStarDepthLimit());
+    }
+    
     public IterativeDeepeningAStarSearch () {
-	super(new DummyDepthLimit() {
-		public boolean belowLimit (Node node) {
-		    return node.totalcost < limit;
-		}
-		public void initializeLimit (Node node) {
-		    limit = node.heuristic;
-		}
-	    });
+	this(new DummyClosedList());
     }
 }

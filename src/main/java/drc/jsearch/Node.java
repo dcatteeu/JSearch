@@ -19,11 +19,12 @@ package drc.jsearch;
 
 import java.util.*;
 
-public class Node {
+public class Node
+{
     public final Node parent;
     public final StateInterface state;
     public final ActionInterface action;
-    public final long depth;
+    public final int depth;
     public final double pathcost, heuristic, totalcost;
 
     Node (Node parent, StateInterface state, ActionInterface action,

@@ -39,4 +39,8 @@ public abstract class AbstractOpenList implements OpenListInterface {
     public void clear () {
 	nodes.clear();
     }
+
+    public int size () {
+	return nodes.size();
+    }
 }

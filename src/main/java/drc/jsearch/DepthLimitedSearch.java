@@ -19,11 +19,11 @@ package drc.jsearch;
 
 public class DepthLimitedSearch extends GenericSearchAlgorithm
 {
-    DepthLimitedSearch (DepthLimitInterface depthlimit) {
+    public DepthLimitedSearch (DepthLimitInterface depthlimit) {
 	super(new LifoOpenList(), new DummyClosedList(), depthlimit);
     }
 
-    DepthLimitedSearch (long limit) {
+    public DepthLimitedSearch (long limit) {
 	this(new SimpleDepthLimit(limit));
     }
 }

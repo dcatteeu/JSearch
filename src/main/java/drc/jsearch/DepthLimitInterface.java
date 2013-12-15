@@ -26,5 +26,7 @@ interface DepthLimitInterface
     /* Increase limit based on the given node. This node is the
      * shallowest pruned node when searching with the current depth
      * limit. */
-    void incLimit (Node node);
+    void updateLimit (Node node);
+
+    double currentLimit ();
 }

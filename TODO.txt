@@ -1,6 +1,5 @@
 -*- mode: org; -*-
 
-* What about splitting AbstractSearchProblem into problem and algorithm? Each search algorithm would have its separate class derived from AbstractSearchAlgorithm. I think this would make it easy to inspect the current state of the search, for example, to display it in a UI.
 * Add generic implementation of State
 * Add ways to read graphs from file
 ** GraphML, GML, XGMML, 
@@ -8,4 +7,4 @@
 * Add documentation
 * Algorithms: 
 ** branch&bound, fringe search, SMA*
-** already available: depth-first, breadth-first, uniform-cost, greedy best-first, A*, depth-limited, iterative deepening depth-first, IDA*)
+** already available: depth-first, breadth-first, uniform-cost, greedy best-first, A*, depth-limited, iterative deepening depth-first, IDA*

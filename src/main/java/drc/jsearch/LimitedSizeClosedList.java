@@ -17,9 +17,18 @@ along with JSearch.  If not, see <http://www.gnu.org/licenses/>. */
 
 package drc.jsearch;
 
-public interface ClosedListInterface {
-    boolean contains (StateInterface state);
-    boolean add (StateInterface state);
-    void clear ();
-    int size ();
+import java.util.*;
+
+public class LimitedSizeClosedList extends ClosedList {
+
+    protected long maxSize;
+
+    public LimitedSizeClosedList (long maxSize) {
+	this.states = new HashSet<StateInterface>();
+	this.maxSize = maxSize;
+    }
+
+    public boolean add (StateInterface state) {
+	return (size() < maxSize) ? states.add(state) : contains(state);
+    }
 }

@@ -42,33 +42,56 @@ public class GenericSearchAlgorithm extends AbstractSearchAlgorithm
 	this(new FifoOpenList());
     }
     
-    public Node search (SearchProblemInterface problem) {
+    public Node execute (SearchProblemInterface problem) {
+	Node result = null, node, shallowestNode = null;
+	resetStatistics();
 	openlist.add(initialNode(problem));
-	Node node = openlist.poll();
-	Node shallowestNode = null;
-	
-	/* Loop until openlist is empty or solution is found. */
-	while (node != null) {
+
+	//int i = 20;
+	/* Loop until openlist is empty, search is cancelled, or
+	 * solution is found. */
+	while (true) {
+	    node = openlist.poll();
+	    if (node == null) {
+		result = shallowestNode;
+		break; // Open list empty, no solution found.
+	    }
+	    //System.out.println("" + node.state + ",d: " + node.depth + ",f: " + node.totalcost
+	    //+ ",g: " + node.pathcost + ",h: " + node.heuristic);
+	    if (isCancelled) {
+		isCancelled = false;
+		result = null;
+		break; // Search cancelled.
+	    }
 	    nofNodesVisited++;
+	    currentDepth = Math.max(currentDepth, node.depth);
 	    if (!depthlimit.belowLimit(node)) {
 		/* Depth limit reached. */
+		//System.out.println("limit");
 		nofNodesPruned++;
 		if (shallowestNode == null ||
 		    node.totalcost < shallowestNode.totalcost) {
 		    shallowestNode = node;
 		}
+	    } else if (problem.isSolution(node.state)) {
+		/* Solution found. */
+		//System.out.println("solution!");
+		result = node; 
+		break; // Solution found.
 	    } else if (closedlist.contains(node.state)) {
 		/* State already seen. */
+		//System.out.println("closed");
 		nofClosedListHits++;
 	    } else {
-		/* State not yet seen. */
+		/* State not yet seen, not a solution, below limit. */
+		//System.out.println("new");
 		closedlist.add(node.state);
-		if (problem.isSolution(node.state)) return node; // Solution found.
 		LinkedList<Node> children = node.expand(problem);
 		openlist.addAll(children);
 	    }
-	    node = openlist.poll();
 	}
-	return shallowestNode; // No solution found.
+	openlist.clear();
+	closedlist.clear();
+	return result;
     }
 }

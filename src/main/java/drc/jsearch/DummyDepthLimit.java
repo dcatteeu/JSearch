@@ -19,13 +19,13 @@ package drc.jsearch;
 
 public class DummyDepthLimit implements DepthLimitInterface
 {
-    double limit = 1;
+    protected double limit = 1;
 
-    DummyDepthLimit (double limit) {
+    public DummyDepthLimit (double limit) {
 	this.limit = limit;
     }
 
-    DummyDepthLimit () {
+    public DummyDepthLimit () {
 	this(1);
     }
     
@@ -37,7 +37,11 @@ public class DummyDepthLimit implements DepthLimitInterface
 	this.limit = 1;
     }
     
-    public void incLimit (Node node) {
+    public void updateLimit (Node node) {
 	limit++;
+    }
+
+    public double currentLimit () {
+	return limit;
     }
 }

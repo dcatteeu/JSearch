@@ -1,0 +1,32 @@
+java.util.Comparator<Node> <-+- AStarComparator
+			     +- GreedyComparator
+		   	     +- UniformCostComparator
+
+DepthLimitInterface <- AbstractDepthLimit
+
+OpenListInterface <- AbstractOpenList <-+- FifoOpenList
+		     		        +- LifoOpenList
+					+- PriorityQueueOpenList
+
+ClosedListInterface <-+- ClosedList
+		      +- DummyClosedList
+
+SearchProblemInterface <- AbstractSearchProblem <- Graph
+
+SearchAlgorithmInterface <- AbstractSearchAlgorithm <- GenericSearchAlgorithm
+    <-+- BestFirstSearch <-+- AStarSearch
+      |	      		   +- GreedyBestFirst
+      |		      	   +- UniformCostSearch
+      +- BreadthFirstSearch
+      +- DepthFirstSearch
+      +- DepthLimitedSearch
+      +- IterativeDeepeningSearch <-+- IterativeDeepeningAStar
+      	 			    +- IterativeDeepeningDepthFirstSearch
+
+Node
+
+ActionInterface
+
+StateInterface <- StringState
+
+StateActionPair

@@ -17,13 +17,18 @@ along with JSearch.  If not, see <http://www.gnu.org/licenses/>. */
 
 package drc.jsearch;
 
-public class SimpleDepthLimit extends DummyDepthLimit
+public class SimpleDepthLimit
+    extends DummyDepthLimit
 {
-    SimpleDepthLimit (double limit) {
+    public SimpleDepthLimit (double limit) {
 	super(limit);
     }
+
+    public SimpleDepthLimit () {
+	; // do nothing
+    }
     
-    public boolean belowLimit (Node n) {
-	return n.depth < limit;
+    public boolean belowLimit (Node node) {
+	return node.depth <= limit;
     }
 }

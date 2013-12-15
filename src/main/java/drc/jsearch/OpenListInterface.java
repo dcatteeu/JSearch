@@ -24,4 +24,5 @@ public interface OpenListInterface {
     boolean add (Node node);
     boolean addAll (LinkedList<Node> nodes);
     void clear ();
+    int size ();
 }

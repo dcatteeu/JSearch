@@ -17,10 +17,9 @@ along with JSearch.  If not, see <http://www.gnu.org/licenses/>. */
 
 package drc.jsearch;
 
-public interface StateInterface {
-
-    boolean equals (StateInterface other);
+public interface StateInterface
+{
+    boolean equals (Object other);
     int hashCode ();
-    String toString ();
-    
+    String toString ();    
 }

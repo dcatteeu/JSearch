@@ -44,7 +44,7 @@ public class Graph extends AbstractSearchProblem {
 	/* StateInterface implementation. */
 
 	@Override
-	public boolean equals (StateInterface other) {
+	public boolean equals (Object other) {
 	    Vertex otherVertex = (Vertex) other;
 	    return label.equals(otherVertex.label);
 	}

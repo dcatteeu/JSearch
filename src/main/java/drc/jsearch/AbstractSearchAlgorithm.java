@@ -17,22 +17,47 @@ along with JSearch.  If not, see <http://www.gnu.org/licenses/>. */
 
 package drc.jsearch;
 
-public abstract class AbstractSearchAlgorithm implements SearchAlgorithmInterface
-{    
-    protected ClosedListInterface closedlist;
+public abstract class AbstractSearchAlgorithm
+    implements SearchAlgorithmInterface
+{
+    protected boolean isCancelled = false;
+    public ClosedListInterface closedlist;
     protected OpenListInterface openlist;
     protected DepthLimitInterface depthlimit;
-    protected long nofNodesVisited = 0;
-    protected long nofNodesPruned = 0;
-    protected long nofClosedListHits = 0;
-    protected long currentDepth = 0;
+    protected int nofNodesVisited;
+    protected int nofNodesPruned;
+    protected int nofClosedListHits;
+    protected int currentDepth;
 
-    public long nofNodesVisited () {
+    public void cancel () {
+	isCancelled = true;
+    }
+
+    public int nofNodesVisited () {
 	return nofNodesVisited;
     }
     
-    public long currentDepth () {
+    public int nofClosedListHits () {
+	return nofClosedListHits;
+    }
+    
+    public int currentDepth () {
 	return currentDepth;
+    }
+
+    public int memoryUse () {
+	return openlist.size() + closedlist.size();
+    }
+
+    public int cacheSize () {
+	return closedlist.size();
+    }
+
+    public void resetStatistics () {
+	nofNodesVisited = 0;
+	nofNodesPruned = 0;
+	nofClosedListHits = 0;
+	currentDepth = 0;
     }
 
     protected Node initialNode (SearchProblemInterface problem) {

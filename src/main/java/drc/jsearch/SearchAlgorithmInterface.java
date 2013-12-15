@@ -19,8 +19,12 @@ package drc.jsearch;
 
 public interface SearchAlgorithmInterface {
 
-    Node search (SearchProblemInterface problem);
+    Node execute (SearchProblemInterface problem);
+    void cancel ();
 
-    long nofNodesVisited ();
-    long currentDepth ();
+    int nofNodesVisited ();
+    int nofClosedListHits ();
+    int currentDepth ();
+    int memoryUse ();
+    int cacheSize ();
 }

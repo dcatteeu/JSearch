@@ -19,7 +19,7 @@ package drc.jsearch;
 
 public class DummyClosedList implements ClosedListInterface {
 
-    DummyClosedList () {
+    public DummyClosedList () {
 	; // Do nothing.
     }
 
@@ -30,5 +30,13 @@ public class DummyClosedList implements ClosedListInterface {
     public boolean add (StateInterface state) {
 	return true; // True indicates the element was not yet in the
 		     // set.
+    }
+
+    public void clear () {
+	; // Do nothing.
+    }
+
+    public int size () {
+	return 0;
     }
 }

@@ -21,9 +21,9 @@ import java.util.*;
 
 public class ClosedList implements ClosedListInterface {
 
-    Set<StateInterface> states;
+    protected Set<StateInterface> states;
 
-    ClosedList () {
+    public ClosedList () {
 	this.states = new HashSet<StateInterface>();
     }
 
@@ -33,5 +33,26 @@ public class ClosedList implements ClosedListInterface {
 
     public boolean add (StateInterface state) {
 	return states.add(state);
+    }
+
+    public void clear () {
+	states.clear();
+    }
+
+    public int size () {
+	return states.size();
+    }
+
+    @Override
+    public String toString () {
+	String result = "<Closedlist: ";
+	Iterator iter = states.iterator();
+	while (iter.hasNext()) {
+	    result = result.concat(iter.next().toString());
+	    if (iter.hasNext())
+		result = result.concat(", ");
+	}
+	result = result.concat(">");
+	return result;
     }
 }

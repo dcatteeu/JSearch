@@ -17,9 +17,18 @@ along with JSearch.  If not, see <http://www.gnu.org/licenses/>. */
 
 package drc.jsearch;
 
-public interface ClosedListInterface {
-    boolean contains (StateInterface state);
-    boolean add (StateInterface state);
-    void clear ();
-    int size ();
+public class AStarDepthLimit
+    extends DummyDepthLimit
+{
+    public boolean belowLimit (Node node) {
+	return node.totalcost <= limit;
+    }
+
+    public void initializeLimit (Node node) {
+	this.limit = node.totalcost;
+    }
+    
+    public void updateLimit (Node node) {
+	this.limit = node.totalcost;
+    }
 }
