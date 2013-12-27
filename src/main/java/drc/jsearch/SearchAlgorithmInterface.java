@@ -20,8 +20,9 @@ package drc.jsearch;
 public interface SearchAlgorithmInterface {
 
     Node execute (SearchProblemInterface problem);
-    void cancel ();
+    void cancel (boolean cancel);
 
+    void resetStatistics ();
     int nofNodesVisited ();
     int nofClosedListHits ();
     int currentDepth ();

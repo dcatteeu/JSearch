@@ -29,8 +29,8 @@ public abstract class AbstractSearchAlgorithm
     protected int nofClosedListHits;
     protected int currentDepth;
 
-    public void cancel () {
-	isCancelled = true;
+    public void cancel (boolean cancel) {
+	isCancelled = cancel;
     }
 
     public int nofNodesVisited () {

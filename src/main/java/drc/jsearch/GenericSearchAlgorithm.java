@@ -56,10 +56,10 @@ public class GenericSearchAlgorithm extends AbstractSearchAlgorithm
 		result = shallowestNode;
 		break; // Open list empty, no solution found.
 	    }
-	    //System.out.println("" + node.state + ",d: " + node.depth + ",f: " + node.totalcost
-	    //+ ",g: " + node.pathcost + ",h: " + node.heuristic);
+	    //System.out.println("" + node.state + ",d: " + node.depth
+	    //+ ",f: " + node.totalcost + ",g: " + node.pathcost +
+	    //",h: " + node.heuristic);
 	    if (isCancelled) {
-		isCancelled = false;
 		result = null;
 		break; // Search cancelled.
 	    }

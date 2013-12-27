@@ -50,8 +50,8 @@ public class IterativeDeepeningSearch
 	
 	Node solution = null;
 	for (iteration = 0; true; iteration++) {
-	    System.out.println("start iteration: " + iteration
-			       + ", " + depthlimit.currentLimit());
+	    // System.out.println("start iteration: " + iteration
+	    // 		       + ", " + depthlimit.currentLimit());
 	    solution = super.execute(problem);
 
 	    /* No solution exists, or search cancelled. */
