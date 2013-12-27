@@ -54,6 +54,8 @@ public class Node
 	return children;
     }
 
+    // Return the path (as a list of nodes) from the initial node to
+    // this node.
     public LinkedList<Node> pathTo () {
 	LinkedList<Node> path = new LinkedList<Node>();
 	Node node = this;
@@ -64,13 +66,27 @@ public class Node
 	return path;
     }
 
+    // Return the path (as a list of actions) from the initial node to
+    // this node.
+    public LinkedList<ActionInterface> actionsTo () {
+	LinkedList<ActionInterface> actions = new LinkedList<ActionInterface>();
+	Node node = this;
+	// As long as there is a parent, there is an action to get to
+	// node.
+	while (node.parent != null) {
+	    actions.addFirst(node.action);
+	    node = node.parent;
+	}
+	return actions;
+    }
+
     @Override
     public String toString () {
 	return new String("<Node: state:" + state
 			  + ", action:" + (action==null ? "null" : action)
 			  + ", depth: " + depth
+			  + ", f: " + totalcost 
 			  + ", g: " + pathcost
-			  + ", h: " + heuristic
-			  + ", f: " + totalcost + ">");
+			  + ", h: " + heuristic+ ">");
     }
 }
