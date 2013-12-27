@@ -1,10 +1,22 @@
 -*- mode: org; -*-
 
+* Add function which returns path to solution (list of actions), given a solution node.
+
+* Allow ID algorithms to stop iterating at some max depth.
+
+* Provide branching factor feedback for search.
+
 * Add generic implementation of State
-* Add ways to read graphs from file
-** GraphML, GML, XGMML, 
-* Add example of a puzzle
+
+* Add ways to read graphs from file.
+** GraphML,
+** GML,
+** XGMML
+
+* Add example of a puzzle or refer to PCPSolver.
+
 * Add documentation
-* Algorithms: 
+
+* Algorithms
 ** branch&bound, fringe search, SMA*
 ** already available: depth-first, breadth-first, uniform-cost, greedy best-first, A*, depth-limited, iterative deepening depth-first, IDA*
