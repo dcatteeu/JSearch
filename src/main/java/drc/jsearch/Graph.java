@@ -45,8 +45,12 @@ public class Graph extends AbstractSearchProblem {
 
 	@Override
 	public boolean equals (Object other) {
-	    Vertex otherVertex = (Vertex) other;
-	    return label.equals(otherVertex.label);
+	    if (other instanceof Vertex) {
+		Vertex otherVertex = (Vertex) other;
+		return label.equals(otherVertex.label);
+	    } else {
+		return false;
+	    }
 	}
 
 	@Override

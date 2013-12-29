@@ -17,23 +17,30 @@ along with JSearch.  If not, see <http://www.gnu.org/licenses/>. */
 
 package drc.jsearch;
 
-public class StringState implements StateInterface {
-    
-    String label;
+public class StringState implements StateInterface
+{    
+    public final String label;
 
-    StringState (String label) {
+    public StringState (String label) {
 	this.label = label;
     }
 
-    public boolean equals (StateInterface other) {
-	StringState otherState = (StringState) other;
-	return label.equals(otherState.label);
+    @Override
+    public boolean equals (Object other) {
+	if (other instanceof StringState) {	    
+	    StringState otherState = (StringState) other;
+	    return label.equals(otherState.label);
+	} else {
+	    return false;
+	}
     }
 
+    @Override
     public int hashCode () {
 	return label.hashCode();
     }
 
+    @Override
     public String toString () {
 	return label;
     }

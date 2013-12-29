@@ -3,7 +3,8 @@ What
 
 JSearch is a Java library with classic search algorithms (depth-first,
 breadth-first, A*, ...). These can be run on any problem as long as it
-implements the SearchProblemInterface.
+implements the SearchProblemInterface. For more information:
+http://dcatteeu.github.io/jsearch.html.
 
 
 Dependencies
