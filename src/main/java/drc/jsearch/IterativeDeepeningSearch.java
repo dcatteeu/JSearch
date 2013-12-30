@@ -21,12 +21,20 @@ public class IterativeDeepeningSearch
     extends GenericSearchAlgorithm
 {
     protected int iteration = 0;
+    protected double maxDepth = 0;
+    protected boolean bounded = false;
     
     public IterativeDeepeningSearch (ClosedListInterface closedlist,
 				     DepthLimitInterface depthlimit) {
 	super(new LifoOpenList(), closedlist, depthlimit);
     }
     
+    /**
+     * Returns the ID depth-first search, where the depth-limited
+     * search uses a closedlist.
+     *
+     * @param closedlist
+     */
     public IterativeDeepeningSearch (ClosedListInterface closedlist) {
 	this(closedlist, new SimpleDepthLimit());
     }
@@ -35,23 +43,59 @@ public class IterativeDeepeningSearch
 	this(new DummyClosedList(), depthlimit);
     }
 
-    /* Implements Iterative deepening Depth first search */
+    /**
+     * Returns the standard ID depth-first search.
+     */
     public IterativeDeepeningSearch () {
 	this(new SimpleDepthLimit());
     }
 
+    /**
+     * Returns the current iteration. During each iteration, depth
+     * limited search is performed. Iterations are 0-based, so the
+     * current iteration is also the number of times the depth limit
+     * was increased.
+     *
+     * @return the current iteration
+     */
     public int currentIteration () {
 	return iteration;
     }
-    
+
+    /**
+     * Makes the iterative deepening search bounded or unbounded.
+     *
+     * @param bounded  true/false
+     */
+    public void setMaxDepth (boolean bounded) {
+	this.bounded = bounded;
+    }
+
+    /**
+     * Makes the iterative deepening search bounded.
+     *
+     * @param maxDepth  the maximum depth at which depth limited search
+     * is performed
+     */
+    public void setMaxDepth (double maxDepth) {
+	this.maxDepth = maxDepth;
+	this.bounded = true;
+    }
+
+    /**
+     * Performs iterative deepening search and returns the solution or
+     * null if no solution was found.
+     *
+     * @param problem  the problem to solve
+     * @return the solution if one is found, otherwise null
+     */
     public Node execute (SearchProblemInterface problem) {
 	Node initialNode = initialNode(problem);
 	depthlimit.initializeLimit(initialNode);
 	
 	Node solution = null;
-	for (iteration = 0; true; iteration++) {
-	    // System.out.println("start iteration: " + iteration
-	    // 		       + ", " + depthlimit.currentLimit());
+	iteration = 0;
+	while (!bounded || depthlimit.currentLimit() <= maxDepth) {
 	    solution = super.execute(problem);
 
 	    /* No solution exists, or search cancelled. */
@@ -62,8 +106,9 @@ public class IterativeDeepeningSearch
 
 	    /* No solution found, search deeper. */
 	    depthlimit.updateLimit(solution);
-	    
+	    iteration++;
 	}
-	// We should not get here.
+	// Maximum depth limit reached.
+	return null;
     }
 }
