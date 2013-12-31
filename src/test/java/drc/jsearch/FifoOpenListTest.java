@@ -47,7 +47,7 @@ public class FifoOpenListTest extends TestCase {
 	assertSame(a, openlist.poll());
 	assertSame(b, openlist.poll());
 	
-	LinkedList<Node> list = new LinkedList<Node>();
+	List<Node> list = new LinkedList<Node>();
 	list.add(c);
 	list.add(d);
 	openlist.addAll(list);

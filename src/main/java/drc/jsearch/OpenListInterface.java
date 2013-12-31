@@ -19,10 +19,11 @@ package drc.jsearch;
 
 import java.util.*;
 
-public interface OpenListInterface {
+public interface OpenListInterface
+{
     Node poll ();
     boolean add (Node node);
-    boolean addAll (LinkedList<Node> nodes);
+    boolean addAll (List<Node> nodes);
     void clear ();
     int size ();
 }

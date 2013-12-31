@@ -32,8 +32,8 @@ public class LifoOpenList extends AbstractOpenList {
 		     // succeed.
     }
 
-    public boolean addAll (LinkedList<Node> nodes) {
-	Iterator<Node> it = nodes.descendingIterator();
+    public boolean addAll (List<Node> nodes) {
+	Iterator<Node> it = nodes.iterator();
 	while (it.hasNext()){
 	    add(it.next());
 	}

@@ -38,8 +38,8 @@ public class Node
 	this.totalcost = pathcost + heuristic;
     }
     
-    LinkedList<Node> expand (SearchProblemInterface problem) {
-	LinkedList<Node> children = new LinkedList<Node>();
+    List<Node> expand (SearchProblemInterface problem) {
+	List<Node> children = new LinkedList<Node>();
 	List<StateActionPair> stateActionPairs = problem.successors(state);
 	for (StateActionPair stateActionPair : stateActionPairs) {
 	    double stepcost = problem.stepcost(this.state,
@@ -56,7 +56,7 @@ public class Node
 
     // Return the path (as a list of nodes) from the initial node to
     // this node.
-    public LinkedList<Node> pathTo () {
+    public List<Node> pathTo () {
 	LinkedList<Node> path = new LinkedList<Node>();
 	Node node = this;
 	while (node != null) {
@@ -68,7 +68,7 @@ public class Node
 
     // Return the path (as a list of actions) from the initial node to
     // this node.
-    public LinkedList<ActionInterface> actionsTo () {
+    public List<ActionInterface> actionsTo () {
 	LinkedList<ActionInterface> actions = new LinkedList<ActionInterface>();
 	Node node = this;
 	// As long as there is a parent, there is an action to get to

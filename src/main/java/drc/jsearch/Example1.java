@@ -17,7 +17,7 @@ along with JSearch.  If not, see <http://www.gnu.org/licenses/>. */
 
 package drc.jsearch;
 
-import java.util.LinkedList;
+import java.util.*;
 
 public class Example1
 {
@@ -51,8 +51,8 @@ public class Example1
 	graph.addEdge("G2", "E",  6);
     }
 
-    LinkedList<String> path (Node solution) {
-	LinkedList<Node> path = solution.pathTo();
+    List<String> path (Node solution) {
+	List<Node> path = solution.pathTo();
 	LinkedList<String> labels = new LinkedList<String>();
 	for (Node node : path) {
 	    Graph.Vertex vertex = (Graph.Vertex) node.state;

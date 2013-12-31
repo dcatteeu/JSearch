@@ -55,7 +55,7 @@ public class LifoOpenListTest extends TestCase {
 	assertSame(a, openlist.poll());
 	openlist.add(b);
 	assertSame(b, openlist.poll());
-	assertSame(c, openlist.poll());
 	assertSame(d, openlist.poll());
+	assertSame(c, openlist.poll());
     }
 }

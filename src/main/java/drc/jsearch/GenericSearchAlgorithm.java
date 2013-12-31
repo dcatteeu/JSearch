@@ -47,7 +47,6 @@ public class GenericSearchAlgorithm extends AbstractSearchAlgorithm
 	resetStatistics();
 	openlist.add(initialNode(problem));
 
-	//int i = 20;
 	/* Loop until openlist is empty, search is cancelled, or
 	 * solution is found. */
 	while (true) {
@@ -56,18 +55,14 @@ public class GenericSearchAlgorithm extends AbstractSearchAlgorithm
 		result = shallowestNode;
 		break; // Open list empty, no solution found.
 	    }
-	    //System.out.println("" + node.state + ",d: " + node.depth
-	    //+ ",f: " + node.totalcost + ",g: " + node.pathcost +
-	    //",h: " + node.heuristic);
 	    if (isCancelled) {
 		result = null;
 		break; // Search cancelled.
 	    }
-	    nofNodesVisited++;
+	    updateNofNodesVisited(node);
 	    currentDepth = Math.max(currentDepth, node.depth);
 	    if (!depthlimit.belowLimit(node)) {
 		/* Depth limit reached. */
-		//System.out.println("limit");
 		nofNodesPruned++;
 		if (shallowestNode == null ||
 		    node.totalcost < shallowestNode.totalcost) {
@@ -75,18 +70,15 @@ public class GenericSearchAlgorithm extends AbstractSearchAlgorithm
 		}
 	    } else if (problem.isSolution(node.state)) {
 		/* Solution found. */
-		//System.out.println("solution!");
 		result = node; 
 		break; // Solution found.
 	    } else if (closedlist.contains(node.state)) {
 		/* State already seen. */
-		//System.out.println("closed");
 		nofClosedListHits++;
 	    } else {
 		/* State not yet seen, not a solution, below limit. */
-		//System.out.println("new");
 		closedlist.add(node.state);
-		LinkedList<Node> children = node.expand(problem);
+		List<Node> children = node.expand(problem);
 		openlist.addAll(children);
 	    }
 	}

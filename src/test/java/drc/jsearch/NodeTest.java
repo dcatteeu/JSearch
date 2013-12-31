@@ -49,11 +49,11 @@ public class NodeTest extends TestCase {
 	assertEquals(4.0, a.totalcost);
 	assertEquals(7.0, c.totalcost);
 	
-	LinkedList<Node> expected = new LinkedList<Node>();
+	List<Node> expected = new LinkedList<Node>();
 	expected.add(a);
 	expected.add(b);
 	expected.add(c);
-	LinkedList<Node> path = c.pathTo();
+	List<Node> path = c.pathTo();
 	assertEquals(expected, path);
     }
 }

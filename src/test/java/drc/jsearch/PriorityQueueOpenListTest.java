@@ -49,7 +49,7 @@ public class PriorityQueueOpenListTest extends TestCase {
 	assertSame(b, openlist.poll());
 	assertSame(a, openlist.poll());
 	
-	LinkedList<Node> list = new LinkedList<Node>();
+	List<Node> list = new LinkedList<Node>();
 	list.add(a);
 	list.add(b);
 	list.add(d);

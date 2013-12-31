@@ -31,7 +31,7 @@ public abstract class AbstractOpenList implements OpenListInterface {
 	return nodes.add(node);
     }
 
-    public boolean addAll (LinkedList<Node> nodes) {
+    public boolean addAll (List<Node> nodes) {
 	boolean result = this.nodes.addAll(nodes);
 	return result;
     }
