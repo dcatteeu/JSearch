@@ -89,6 +89,10 @@ public abstract class AbstractSearchAlgorithm
     public int currentDepth () {
 	return currentDepth;
     }
+
+    public double currentDepthLimit() {
+	return depthlimit.currentLimit();
+    }
     
     public int memoryUse () {
 	return openlist.size() + closedlist.size();
@@ -99,7 +103,7 @@ public abstract class AbstractSearchAlgorithm
     }
     
     /**
-     * Resets all statistics. Call this function manually before
+     * Resets all statistics. Call this function (manually?) before
      * running the search algorithm.
      */
     public void resetStatistics () {

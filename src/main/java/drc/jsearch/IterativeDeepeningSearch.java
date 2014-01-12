@@ -96,6 +96,7 @@ public class IterativeDeepeningSearch
 	Node solution = null;
 	iteration = 0;
 	while (!bounded || depthlimit.currentLimit() <= maxDepth) {
+	    //System.out.print(" " + depthlimit.currentLimit());
 	    solution = super.execute(problem);
 
 	    /* No solution exists, or search cancelled. */

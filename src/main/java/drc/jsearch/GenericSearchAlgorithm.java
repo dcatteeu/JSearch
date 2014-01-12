@@ -1,4 +1,4 @@
-/* Copyright 2013 David Catteeuw
+/* Copyright 2013, 2014 David Catteeuw
 
 This file is part of JSearch.
 
@@ -21,24 +21,24 @@ import java.util.*;
 
 public class GenericSearchAlgorithm extends AbstractSearchAlgorithm
 {
-    GenericSearchAlgorithm (OpenListInterface openlist,
-			    ClosedListInterface closedlist,
-			    DepthLimitInterface function) {
+    public GenericSearchAlgorithm (OpenListInterface openlist,
+				   ClosedListInterface closedlist,
+				   DepthLimitInterface function) {
 	this.openlist = openlist;
 	this.closedlist = closedlist;
 	this.depthlimit = function;
     }
     
-    GenericSearchAlgorithm (OpenListInterface openlist,
-			    ClosedListInterface closedlist) {
+    public GenericSearchAlgorithm (OpenListInterface openlist,
+				   ClosedListInterface closedlist) {
 	this(openlist, closedlist, new DummyDepthLimit ());
     }
     
-    GenericSearchAlgorithm (OpenListInterface openlist) {
+    public GenericSearchAlgorithm (OpenListInterface openlist) {
 	this(openlist, new DummyClosedList());
     }
     
-    GenericSearchAlgorithm () {
+    public GenericSearchAlgorithm () {
 	this(new FifoOpenList());
     }
     

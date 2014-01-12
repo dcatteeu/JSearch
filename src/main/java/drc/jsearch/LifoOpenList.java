@@ -1,4 +1,4 @@
-/* Copyright 2013 David Catteeuw
+/* Copyright 2013, 2014 David Catteeuw
 
 This file is part of JSearch.
 
@@ -19,19 +19,21 @@ package drc.jsearch;
 
 import java.util.*;
 
-public class LifoOpenList extends AbstractOpenList {
-
-    LifoOpenList () {
+public class LifoOpenList extends AbstractOpenList 
+{
+    public LifoOpenList () {
 	nodes = new ArrayDeque<Node>();
     }
     
+    @Override
     public boolean add (Node node) {
 	Deque<Node> nodes = (Deque<Node>) this.nodes;
 	nodes.addFirst(node);
 	return true; // No space limitations, so it should always
 		     // succeed.
     }
-
+    
+    @Override
     public boolean addAll (List<Node> nodes) {
 	Iterator<Node> it = nodes.iterator();
 	while (it.hasNext()){
